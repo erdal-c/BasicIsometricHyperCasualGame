@@ -23,7 +23,6 @@ public class PlatformController : MonoBehaviour
         platformSet = oldPlatform.transform.position + destination;
 
         playerTransform = FindObjectOfType<PlayerControler>().gameObject.transform;
-        //playerTransform = PlayerControler.GetInstance().gameObject.transform;
     }
 
     // Update is called once per frame
@@ -64,13 +63,13 @@ public class PlatformController : MonoBehaviour
         }
     }
 
-    void PlatformDestroyer()
+    void PlatformDestroyer()     // It is alternative way to destroy platform cubes.  I didn't use this method for this project.
     {
         foreach(Transform child in platformParent.transform)
         {
             if(Vector3.Distance(playerTransform.position, child.position) > 6f)
             {
-                Destroy(child.gameObject);   //child Transform objeci bu yüzden sadece Destroy(child) yazýnca destroy olmuyor. Destroy edebilmek için GameOject olmasý lazým.
+                Destroy(child.gameObject);
             }
         }       
     }
@@ -81,6 +80,5 @@ public class PlatformController : MonoBehaviour
         {
             Destroy(platformParent.transform.GetChild(0).gameObject);
         }
-        
     }
 }

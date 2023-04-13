@@ -12,7 +12,6 @@ public class PlayerControler : MonoBehaviour
     CurrentDirection currentDirection;
     MenuManager menuManager;
 
-    // Start is called before the first frame update
     void Start()
     {
         instance = this;
@@ -22,7 +21,6 @@ public class PlayerControler : MonoBehaviour
         menuManager = FindObjectOfType<MenuManager>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!isPlayerDead && menuManager.TimerActiveCheck())
@@ -80,7 +78,7 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
-    void PlayerMove()
+    void PlayerMove()   //Movement with AddForce. But it cause to unintended discontinuation while change direction.
     {
         if (currentDirection == CurrentDirection.left)
         {

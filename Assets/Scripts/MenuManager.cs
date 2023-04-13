@@ -21,7 +21,6 @@ public class MenuManager : MonoBehaviour
 
     private void Awake()
     {
-        //Time.timeScale = 0;
         mainButton.SetActive(true);
     }
     void Start()
@@ -31,15 +30,13 @@ public class MenuManager : MonoBehaviour
         recordText.text = "Record\n" + bestScore.ToString("0");
     }
 
-    // Update is called once per frame
     void Update()
     {
         DeadControl();
         if(timerActive) 
         {
             score += Time.deltaTime*10;
-            mainScore.GetComponent<Text>().text = score.ToString("0"); //mainScore GameObject olarak alýndý. Bu yüzden .text gibi bir property kulanýlamýyor. GameObjectteki Text componentini almamýz gerek.
-
+            mainScore.GetComponent<Text>().text = score.ToString("0");
         }
     }
 
@@ -75,7 +72,6 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene(0);
         menuCanvas.SetActive(false);
         timerActive = true;
-        //score = 0;
     }
 
     public void ExitButton()
