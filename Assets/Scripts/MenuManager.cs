@@ -42,12 +42,7 @@ public class MenuManager : MonoBehaviour
         if(timerActive) 
         {
             score += Time.deltaTime*10;
-<<<<<<< Updated upstream
-            mainScore.GetComponent<Text>().text = score.ToString("0"); //mainScore GameObject olarak alýndý. Bu yüzden .text gibi bir property kulanýlamýyor. GameObjectteki Text componentini almamýz gerek.
-
-=======
             mainScore.GetComponent<Text>().text = score.ToString("0"); 
->>>>>>> Stashed changes
         }
         SoundAdjusting();
     }
