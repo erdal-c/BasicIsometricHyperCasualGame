@@ -30,8 +30,7 @@ public class PlayerControler : MonoBehaviour
         if (!isPlayerDead && menuManager.TimerActiveCheck())
         {
             RayCastDetector();
-            //if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-            if (Input.GetKeyDown("space") || Input.GetMouseButtonDown(0))
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             {
                 ChangeDirection();
                 PlayerStop();
