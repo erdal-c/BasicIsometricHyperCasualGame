@@ -16,11 +16,16 @@ public class MenuManager : MonoBehaviour
     public Text recordText;
     public Text loseMenuNewRecordText;
 
+    public Button soundButton;
+    public Slider soundSettingSlider;
+    AudioSource _gameSong;
+
     bool timerActive;
 
 
     private void Awake()
     {
+        //Time.timeScale = 0;
         mainButton.SetActive(true);
     }
     void Start()
@@ -30,14 +35,17 @@ public class MenuManager : MonoBehaviour
         recordText.text = "Record\n" + bestScore.ToString("0");
     }
 
+    // Update is called once per frame
     void Update()
     {
         DeadControl();
         if(timerActive) 
         {
             score += Time.deltaTime*10;
-            mainScore.GetComponent<Text>().text = score.ToString("0");
+            mainScore.GetComponent<Text>().text = score.ToString("0"); //mainScore GameObject olarak alýndý. Bu yüzden .text gibi bir property kulanýlamýyor. GameObjectteki Text componentini almamýz gerek.
+
         }
+        SoundAdjusting();
     }
 
     void DeadControl()
@@ -63,6 +71,8 @@ public class MenuManager : MonoBehaviour
         mainButton.SetActive(false);
         mainBoardText.gameObject.SetActive(false);
         recordText.gameObject.SetActive(false);
+        soundButton.gameObject.SetActive(false);
+        soundSettingSlider.gameObject.SetActive(false);
         mainScore.SetActive(true);
         timerActive= true;
         Time.timeScale = 1;
@@ -72,11 +82,34 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene(0);
         menuCanvas.SetActive(false);
         timerActive = true;
+        //score = 0;
     }
 
     public void ExitButton()
     {
         Application.Quit();
+    }
+
+    public void SoundButton()
+    {
+        if(!soundSettingSlider.gameObject.activeSelf) 
+        {
+            soundSettingSlider.gameObject.SetActive(true);
+            _gameSong = FindObjectOfType<DontDestroy>().GetComponent<AudioSource>();
+            soundSettingSlider.value = _gameSong.volume;
+        }
+        else
+        {
+            soundSettingSlider.gameObject.SetActive(false);
+        }
+    }
+
+    void SoundAdjusting()
+    {
+        if (soundSettingSlider.gameObject.activeSelf)
+        {
+            _gameSong.volume = soundSettingSlider.value;
+        }
     }
 
     public bool TimerActiveCheck()

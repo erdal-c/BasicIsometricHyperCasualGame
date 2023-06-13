@@ -23,21 +23,29 @@ public class PlatformController : MonoBehaviour
         platformSet = oldPlatform.transform.position + destination;
 
         playerTransform = FindObjectOfType<PlayerControler>().gameObject.transform;
+        //playerTransform = PlayerControler.GetInstance().gameObject.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
         IsPlayerClose();
-        PlatformDestroyer2();
+        PlatformDestroyer3();
     }
 
     public void AddPlatform()
     {
-        if (playerClose == true)
+        if (playerClose == true && platformParent.transform.childCount < 35)
         {
             platformSet += destination;
-            Instantiate(platform, platformSet, Quaternion.identity, platformParent.transform);           
+            Instantiate(platform, platformSet, Quaternion.identity, platformParent.transform);
+        }
+        else if (playerClose == true && platformParent.transform.childCount >= 35)
+        {
+            //GameObject gameobject = ObjectPool.instance.RemoveQueue();
+            platformSet += destination;
+            //gameobject.transform.position = platformSet;
+            ObjectPool.instance.RemoveQueue().transform.position = platformSet;
         }
     }
 
@@ -63,13 +71,13 @@ public class PlatformController : MonoBehaviour
         }
     }
 
-    void PlatformDestroyer()     // It is alternative way to destroy platform cubes.  I didn't use this method for this project.
+    void PlatformDestroyer()
     {
         foreach(Transform child in platformParent.transform)
         {
             if(Vector3.Distance(playerTransform.position, child.position) > 6f)
             {
-                Destroy(child.gameObject);
+                Destroy(child.gameObject);   //child Transform objeci bu yüzden sadece Destroy(child) yazýnca destroy olmuyor. Destroy edebilmek için GameOject olmasý lazým.
             }
         }       
     }
@@ -80,5 +88,18 @@ public class PlatformController : MonoBehaviour
         {
             Destroy(platformParent.transform.GetChild(0).gameObject);
         }
+        
+    }
+    void PlatformDestroyer3()
+    {
+        foreach(Transform child in platformParent.transform)
+        {
+            if (Vector3.Distance(playerTransform.position, child.position) > 7.5f && child.gameObject.activeSelf == true)
+            {
+                ObjectPool.instance.AddQueue(child.gameObject);
+            }
+        }
+
+
     }
 }

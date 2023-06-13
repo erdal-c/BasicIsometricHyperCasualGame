@@ -12,6 +12,9 @@ public class PlayerControler : MonoBehaviour
     CurrentDirection currentDirection;
     MenuManager menuManager;
 
+    public AudioSource deadSong;
+
+    // Start is called before the first frame update
     void Start()
     {
         instance = this;
@@ -21,11 +24,13 @@ public class PlayerControler : MonoBehaviour
         menuManager = FindObjectOfType<MenuManager>();
     }
 
+    // Update is called once per frame
     void Update()
     {
         if (!isPlayerDead && menuManager.TimerActiveCheck())
         {
             RayCastDetector();
+            //if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             if (Input.GetKeyDown("space") || Input.GetMouseButtonDown(0))
             {
                 ChangeDirection();
@@ -45,6 +50,7 @@ public class PlayerControler : MonoBehaviour
         }
         else
         {
+            deadSong.Play();
             PlayerStop();
             isPlayerDead= true;
             this.gameObject.SetActive(false);
@@ -78,7 +84,7 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
-    void PlayerMove()   //Movement with AddForce. But it cause to unintended discontinuation while change direction.
+    void PlayerMove()
     {
         if (currentDirection == CurrentDirection.left)
         {
