@@ -19,10 +19,13 @@ public class DontDestroy : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
     }
+<<<<<<< Updated upstream
 
     // Update is called once per frame
     void Update()
     {
         
     }
+=======
+>>>>>>> Stashed changes
 }

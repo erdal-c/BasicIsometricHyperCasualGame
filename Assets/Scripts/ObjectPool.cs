@@ -16,12 +16,15 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
+<<<<<<< Updated upstream
     // Update is called once per frame
     void Update()
     {
         
     }
 
+=======
+>>>>>>> Stashed changes
     public void AddQueue(GameObject gameobject)
     {
         pool.Enqueue(gameobject);
